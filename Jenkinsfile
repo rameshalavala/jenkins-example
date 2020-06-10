@@ -1,20 +1,18 @@
 pipeline {
     agent any
-stage('Checkout') {
-      steps {
-        git 'https://github.com/rameshalavala/jenkins-example'
+     stages {
+        stage('Checkout') {
+           steps {
+            git 'https://github.com/rameshalavala/jenkins-example'
       }
     }
-    stages {
-        stage ('build') {
-
-            steps {
+         stage ('build') {
+                steps {
                 withMaven(maven : 'maven_3_5_0') {
-                    bat 'mvn clean'
+                    sh 'mvn clean'
                 }
             }
         }
         
     }
-
 }
