@@ -1,32 +1,20 @@
 pipeline {
     agent any
-
-    stages {
-        stage ('Compile Stage') {
-
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    bat 'mvn -X clean compile'
-                }
-            }
-        }
-
-        stage ('Testing Stage') {
-
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    bat 'mvn test'
-                }
-            }
-        }
-
-
-        stage ('Deployment Stage') {
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    bat 'mvn deploy'
-                }
-            }
-        }
+stage('Checkout') {
+      steps {
+        git 'https://github.com/rameshalavala/jenkins-example'
+      }
     }
+    stages {
+        stage ('build') {
+
+            steps {
+                withMaven(maven : 'maven_3_5_0') {
+                    bat 'mvn clean'
+                }
+            }
+        }
+        
+    }
+
 }
